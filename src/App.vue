@@ -1,26 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1>Task List</h1>
+    <TaskList :tasks="tasks" @updateTasks="updateTasks" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import {ref} from 'vue';
+import TaskList from './components/TaskList.vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
-</script>
+    TaskList,
+  },
+  setup() {
+    const tasks = ref([
+      {name: 'Task 1', time: 30},
+      {name: 'Task 2', time: 40},
+      {name: 'Task 3', time: 60},
+      {name: 'Task 4', time: 45},
+      {name: 'Task 5', time: 50},
+    ]);
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+    const updateTasks = (newTasks) => {
+      tasks.value = newTasks;
+    };
+
+    return {tasks, updateTasks};
+  },
+};
+</script>
